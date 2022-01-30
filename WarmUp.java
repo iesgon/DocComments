@@ -35,24 +35,80 @@ public class WarmUp {
 		System.out.printf("Point: (0, 23), Area: %.2f\n", area(point4));
 		System.out.printf("Point: (12, 0), Area: %.2f\n", area(point5));
 		System.out.println();
-		// This tests the method for seeing the first few multiples of a given int n.
-		System.out.printf("Multiples of %d: %s\n", 3, Arrays.toString(firstEightMultiples(3)));
-		System.out.printf("Multiples of %d: %s\n", 3, Arrays.toString(firstEightMultiples(4)));
-		System.out.printf("Multiples of %d: %s\n", 3, Arrays.toString(firstEightMultiples(23)));
+		/*
+		 * generates a random number between -100 & 100 and calls firstEightMultiples
+		 * method 5x
+		 */
+		for (int i = 0; i < 5; i++)
+		{
+			int random = ((int) (Math.random() * (100 + 100)) - 100);
+			System.out.println("First 8 Multiples of " + random + " = " + Arrays.toString(firstEightMultiples(random)));
+		}
 		System.out.println();
-		ArrayList<Point> points = new ArrayList<Point>();
-		points.add(point1);
-		points.add(point2);
-		points.add(point3);
-		points.add(point4);
-		points.add(point5);
-		System.out.println(points);
-		System.out.println(take(points, 3));
-		System.out.println(take(points, 1));
-		System.out.println(take(points, 0));
-		System.out.println(take(points, -1));
-		//System.out.println(take(points, 6));
+
+		/*
+		 * create three different sized String Arrays and pass them to firstAndLastToXXX
+		 * method
+		 */
+		String emptyArray[] = new String[0];
+		String oneIndexArray[] =
+		{ "Happy:)" };
+		String bigArray[] =
+		{ "A1", "B2", "C3", "D4" };
+
+		firstAndLastToXXX(emptyArray);
+		firstAndLastToXXX(oneIndexArray);
+		firstAndLastToXXX(bigArray);
+		System.out.println();
+
+		// create 3 Point Arrays of 3 different sizes and pass it to content method
+		Point multiplePoints[] =
+		{ point1, point2, point3, point4, point5 };
+		Point onePoint[] =
+		{ point3 };
+		Point noPoint[] = new Point[0];
+
+		System.out
+				.println("Points: " + Arrays.toString(multiplePoints) + " Expected String:" + content(multiplePoints));
+		System.out.println("Points: " + Arrays.toString(onePoint) + " Expected String:" + content(onePoint));
+		System.out.println("Points: " + Arrays.toString(noPoint) + " Expected String:" + content(noPoint));
+		System.out.println();
+
+		// Make 3 different sized array lists and pass to hyphenate method
+		ArrayList<String> multipleSyllables = new ArrayList<String>();
+		multipleSyllables.add("Beau");
+		multipleSyllables.add("ti");
+		multipleSyllables.add("ful");
+
+		ArrayList<String> oneSyllable = new ArrayList<String>();
+		oneSyllable.add("Hi");
+
+		ArrayList<String> noSyllable = new ArrayList<String>();
+
+		System.out.println("Syllables:" + multipleSyllables + " Expected String: " + hyphenate(multipleSyllables));
+		System.out.println("Syllables:" + oneSyllable + " Expected String: " + hyphenate(oneSyllable));
+		System.out.println("Syllables:" + noSyllable + " Expected String: " + hyphenate(noSyllable));
+		System.out.println();
 		
+		//selecting a char and passing it to moreOfTheSame method
+		System.out.println(moreOfTheSame('X'));
+		System.out.println(moreOfTheSame('-'));
+		System.out.println(moreOfTheSame('@'));
+		System.out.println();
+		
+		//create an Point Array list and pass it to take method with different integer sizes. will throw an exception
+		ArrayList <Point> pointArrList = new ArrayList<>();
+		pointArrList.add(point1);
+		pointArrList.add(point2);
+		pointArrList.add(point3);
+		pointArrList.add(point4);
+		pointArrList.add(point5);
+		
+		System.out.println("List: "+ pointArrList + " ExpectedList: "+take(pointArrList,3));
+		System.out.println("List: "+ pointArrList + " ExpectedList: "+take(pointArrList,1));
+		System.out.println("List: "+ pointArrList + " ExpectedList: "+take(pointArrList,0));
+		System.out.println("List: "+ pointArrList + " ExpectedList: "+take(pointArrList,6));
+		System.out.println("List: "+ pointArrList + " ExpectedList: "+take(pointArrList,-1));
 		
 
 	}
@@ -94,11 +150,137 @@ public class WarmUp {
 		return area;
 	}
 	/**
+	 * Returns an array that includes the first 8 multiples of n
+	 * 
+	 * @param n int to find multiples of
+	 * @return int array of first 8 multiples of n
+	 */
+	public static int[] firstEightMultiples(int n)
+	{
+		int multiplesOfN[] = new int[8];
+		for (int i = 0; i < 8; i++)
+		{
+			multiplesOfN[i] = n * (i + 1);
+		}
+		return multiplesOfN;
+	}
+
+	/**
+	 * First and last elements of String array point to "XXX". Prints out Original
+	 * String Array and Post String Array
+	 * 
+	 * @param strings String Array
+	 */
+	public static void firstAndLastToXXX(String[] strings)
+	{
+		System.out.print("Before:" + Arrays.toString(strings));
+		String str = "XXX";
+		if (strings.length == 0)
+		{
+		} else if (strings.length == 1)
+		{
+			strings[0] = str;
+
+		} else
+		{
+			strings[0] = str;
+			strings[strings.length - 1] = str;
+
+		}
+		System.out.println(" After:" + Arrays.toString(strings));
+
+	}
+
+	/**
+	 * Create a string that includes all points of the array separated by a period.
+	 * if the array is empty, an empty string will be returned/
+	 * 
+	 * @param points Array of Points
+	 * @return a string
+	 */
+	public static String content(Point[] points)
+	{
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < points.length; i++)
+		{
+			if (!(i == 0))
+			{
+				sb.append('.');
+			}
+			sb.append(points[i]);
+		}
+		return sb.toString();
+
+	}
+
+	/**
+	 * Creates a String that includes all syllables of the list separated by dashes.
+	 * if list is empty, an empty string returns.
+	 * 
+	 * @param syllables array list
+	 * @return String
+	 */
+	public static String hyphenate(ArrayList<String> syllables)
+	{
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < syllables.size(); i++)
+		{
+			if (i != 0)
+			{
+				sb.append('-');
+			}
+			sb.append(syllables.get(i));
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Create and returns a list of type ArrayList<String> that includes 5 strings. the first string has length 1 and includes character provided as an argument once. the second string has length 2 and includes the character twice, etc. the fifth string has length 5 and includes the character 5 times.
+	 * @param c char
+	 * @return Array List
+	 */
+	public static ArrayList<String> moreOfTheSame (char c)
+	{
+		ArrayList<String> moreOfTheSame = new ArrayList<>();
+		String str = "";
+		for(int i = 1; i < 6; i++)
+		{
+			str += c;		
+			moreOfTheSame.add(str);
+
+		}
+		return moreOfTheSame;
+	}
+	/**
+	 * crates and returns a new list that includes the first n points from the list provided as an argument.
+	 * @param list Point Array List
+	 * @param n int first amount of points
+	 * @return a new Point Array list of n amount of points inside given Point Array list.
+	 */
+	public static ArrayList<Point> take(ArrayList<Point> list, int n)
+	{
+		ArrayList<Point> newArray = new ArrayList<>();
+		
+		if (n < 0 || n > list.size())
+			   throw new IllegalArgumentException("The list doesn't have " + n + " elements.");
+
+		for(int i = 0; i < n;i++)
+		{
+			newArray.add(list.get(i));
+		}
+		
+		
+		return newArray;
+		
+	}
+	/*
+	
+	/**
 	 * This method allows the user to get back the first 8 multiples of a given integer n. it will then return an array.
 	 * @param int n
 	 * @return int Array[]
 	 */
-	
+	/*
 	public static int[] firstEightMultiples(int n) {
 		int[] intArray = {1, 2, 3, 4, 5, 6, 7, 8};
 		for (int i = 0; i < intArray.length; i++)
@@ -108,6 +290,15 @@ public class WarmUp {
 		}
 		return intArray;
 	}
+	/**
+	 * Returns an Array list that has had some elements removed depending on n.
+	 *Returns and exception if n is larger than the size of the array list or if n is smaller than 0
+	 * @param list
+	 * @param n
+	 * @return
+	 * @author Iesus Gonzalez
+	 */
+	/*
 	public static ArrayList<Point> take(ArrayList<Point> list, int n){
 		if (n < 0 || n > list.size())
 			   throw new IllegalArgumentException("The list doesn't have " + n + " elements.");
@@ -119,5 +310,5 @@ public class WarmUp {
 		
 		
 		return list;
-	}
+	}*/
 }
